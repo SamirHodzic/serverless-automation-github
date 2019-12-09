@@ -1,0 +1,19 @@
+service: serverless-automation-github
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  profile: serverless-samirh
+  environment:
+    GITHUB_TOKEN: ${file(./env.json):GITHUB_TOKEN}
+
+plugins:
+  - serverless-offline
+
+functions:
+  webhook:
+    handler: handler.webhook
+    events:
+      - http:
+          path: webhook
+          method: post
